@@ -51,21 +51,14 @@ All scripts are heavily commented, include exercises, and use practical examples
 ---
 
 ## Repository Structure
-# offshore-aging-gom/
-# ├── data/
-# │   ├── raw/                    # Downloaded BOEM zip files
-# │   └── processed/              # Cleaned GeoJSON and analysis files
+```
+r-curriculum/
 ├── scripts/
 │   ├── 01_R_Fundamentals.R
 │   ├── 02_R_Data_Structures_Deep_Dive.R
-│   ├── ...
-│   └── 15_R_Package_Development_Performance.R
-├── notebooks/
-│   └── offshore-report.ipynb   # Main Python analysis (exploratory)
+│   └── ...
+├── data/
 ├── outputs/
-│   ├── figures/                # Saved plots and visualizations
-│   ├── reports/                # Generated HTML/PDF reports
-│   └── maps/                   # Interactive map exports
 ├── README.md
-├── .gitignore
-└── LICENSE
+└── .gitignore
+```
