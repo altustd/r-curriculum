@@ -51,10 +51,10 @@ All scripts are heavily commented, include exercises, and use practical examples
 ---
 
 ## Repository Structure
-offshore-aging-gom/
-├── data/
-│   ├── raw/                    # Downloaded BOEM zip files
-│   └── processed/              # Cleaned GeoJSON and analysis files
+# offshore-aging-gom/
+# ├── data/
+# │   ├── raw/                    # Downloaded BOEM zip files
+# │   └── processed/              # Cleaned GeoJSON and analysis files
 ├── scripts/
 │   ├── 01_R_Fundamentals.R
 │   ├── 02_R_Data_Structures_Deep_Dive.R
