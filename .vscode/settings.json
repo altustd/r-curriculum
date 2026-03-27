@@ -1,0 +1,27 @@
+{
+    "r.rterm.mac": "/usr/local/bin/R",   // Change if your R is elsewhere (check with 'which R')
+    "r.plot.useHttpgd": true,
+    "r.bracketedPaste": true,
+    "r.lsp.diagnostics": true,
+    
+    "[r]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "REditorSupport.r",
+        "editor.wordSeparators": "`~!@#%$^&*()-=+[{]}\\|;:'\",<>/?"
+    },
+    "[rmd]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "REditorSupport.r"
+    },
+    "[quarto]": {
+        "editor.formatOnSave": true
+    },
+    
+    "files.exclude": {
+        "**/renv/library": true,
+        "**/.Rproj.user": true,
+        "**/*.RData": true
+    },
+    
+    "explorer.excludeGitIgnore": true
+}
