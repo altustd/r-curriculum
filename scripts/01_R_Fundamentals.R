@@ -1,127 +1,176 @@
-# =============================================================================
-# SCRIPT 1: R Fundamentals - Getting Started
-# Goal: Master the absolute basics that EVERYTHING else in R builds upon
-# Run this entire script line-by-line in RStudio
-# =============================================================================
+# ==============================================================================
+# 02_R_Data_Structures_Deep_Dive.R
+# R Curriculum
+#
+# Topic: Deep Dive into R Data Structures
+# 
+# This script builds directly on Script 01 (Fundamentals).
+# We explore the main data structures in R using simple, general examples.
+# ==============================================================================
 
-# 1. Check your R version and environment -------------------------------------
-print(R.version.string)          # e.g. "R version 4.3.2 (2023-10-31)"
-sessionInfo()                    # shows loaded packages, platform, etc.
+# --------------------------- Setup --------------------------------------------
+# Run this if needed:
+# renv::restore()
 
-# 2. Basic arithmetic and assignment --------------------------------------------
-a <- 5 + 3          # assignment with <- (traditional R style)
-b <- 10 / 2
-result <- a * b
-print(result)       # 40
+library(tidyverse)   # We'll use it lightly for comparison later
 
-# Vectorized operations (R's superpower)
-vec1 <- c(1, 2, 3, 4, 5)           # numeric vector
-vec2 <- c(10, 20, 30, 40, 50)
-vec_sum <- vec1 + vec2              # element-wise addition
-print(vec_sum)
+cat("=== Script 02: Data Structures Deep Dive ===\n\n")
 
-# 3. All major data types & structures ---------------------------------------
-# Atomic vectors
-numeric_vec   <- c(1.2, 3.4, 5.6)
-character_vec <- c("apple", "banana", "cherry")
-logical_vec   <- c(TRUE, FALSE, TRUE)
-integer_vec   <- 1:10                       # special integer sequence
-factor_vec    <- factor(c("low", "med", "high", "med"))
+# ==============================================================================
+# 1. Atomic Vectors (The Building Blocks of R)
+# ==============================================================================
 
-# Matrix
-mat <- matrix(1:12, nrow = 3, ncol = 4, byrow = TRUE)
-print(mat)
+# Numeric vector - Student exam scores (out of 100)
+exam_scores <- c(85, 92, 78, 95, 88, 76, 91, 82)
+print("Student exam scores:")
+print(exam_scores)
 
-# Array (3-dimensional example)
-arr <- array(1:24, dim = c(2, 3, 4))
-print(arr)
+# Character vector - Department names
+departments <- c("Marketing", "Sales", "HR", "Finance", "IT", "Operations", "R&D")
+print("\nDepartments:")
+print(departments)
 
-# List (can hold mixed types)
-my_list <- list(
-  name = "Troy",
-  age = 35,
-  scores = c(95, 87, 92),
-  active = TRUE
-)
-print(my_list)
+# Logical vector - Did the student pass the course?
+passed <- c(TRUE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE)
+print("\nPassed the course?:")
+print(passed)
 
-# Data frame (the most important structure for data analysis)
-df <- data.frame(
-  id       = 1:5,
-  name     = c("Alice", "Bob", "Charlie", "Dana", "Eve"),
-  age      = c(25, 30, 35, 28, 40),
-  salary   = c(55000, 62000, 78000, 45000, 91000),
-  employed = c(TRUE, TRUE, FALSE, TRUE, TRUE)
-)
-print(df)
+# Basic properties and operations
+cat("\nVector properties and operations:\n")
+cat("Type of exam_scores:", typeof(exam_scores), "\n")
+cat("Length of departments:", length(departments), "\n")
+cat("Mean exam score:", mean(exam_scores), "\n")
+cat("Number of students who passed:", sum(passed), "\n")
+cat("Any failures?", any(!passed), "\n")
 
-# 4. Subsetting / indexing ----------------------------------------------------
-# Vectors
-vec1[3]                  # 3rd element
-vec1[c(1, 3, 5)]         # multiple elements
-vec1[vec1 > 3]           # logical subsetting
+# ==============================================================================
+# 2. Factors (For Categorical Data)
+# ==============================================================================
 
-# Data frames
-df$name                  # column by name
-df[, "age"]              # column by name (vector)
-df[3, ]                  # entire 3rd row
-df[df$age > 30, ]        # rows where age > 30
-df[1:3, c("name", "salary")]
+# Convert departments to factor
+dept_factor <- factor(departments)
 
-# Lists
-my_list$scores           # by name
-my_list[[3]]             # by position (extracts the element itself)
+print("\nDepartments as factor:")
+print(dept_factor)
+cat("Factor levels:", levels(dept_factor), "\n")
 
-# 5. Missing values (NA) ------------------------------------------------------
-x <- c(1, 2, NA, 4, 5)
-mean(x)                  # returns NA
-mean(x, na.rm = TRUE)    # 3
+# Ordered factor - Customer satisfaction rating
+satisfaction <- c("Low", "Medium", "High", "Medium", "Low", "High", "Medium", "High")
+satisfaction_factor <- factor(satisfaction, 
+                              levels = c("Low", "Medium", "High"), 
+                              ordered = TRUE)
 
-is.na(x)                 # detects NAs
-x[is.na(x)] <- 999       # replace NAs (example)
+print("\nCustomer satisfaction as ordered factor:")
+print(satisfaction_factor)
 
-# 6. Basic functions you write yourself ---------------------------------------
-add_numbers <- function(x, y) {
-  return(x + y)
-}
-add_numbers(7, 11)       # 18
+# ==============================================================================
+# 3. Matrices (2D Homogeneous Data)
+# ==============================================================================
 
-# Function with default argument and vector support
-summarize_vec <- function(vec, na.rm = TRUE) {
-  list(
-    mean   = mean(vec, na.rm = na.rm),
-    median = median(vec, na.rm = na.rm),
-    min    = min(vec, na.rm = na.rm),
-    max    = max(vec, na.rm = na.rm),
-    length = length(vec)
+# Sales matrix: rows = products, columns = quarters
+sales_matrix <- matrix(
+  c(1200, 1350, 1480, 1620,   # Product A
+    980,  1050, 1120, 1250,   # Product B
+    750,  820,  910,  980),   # Product C
+  nrow = 3, 
+  byrow = TRUE,
+  dimnames = list(
+    c("Product_A", "Product_B", "Product_C"),
+    c("Q1", "Q2", "Q3", "Q4")
   )
-}
-summarize_vec(c(10, 20, NA, 40))
+)
 
-# 7. Getting help -------------------------------------------------------------
-?mean                    # opens documentation for mean()
-help("data.frame")       # same thing
-example(mean)            # runs built-in examples
+print("\nQuarterly Sales Matrix:")
+print(sales_matrix)
 
-# 8. First quick visualization ------------------------------------------------
-plot(vec1, vec2, 
-     main = "Simple Scatter Plot", 
-     xlab = "Vector 1", 
-     ylab = "Vector 2",
-     col = "blue", pch = 19)
+cat("\nAverage sales per quarter:\n")
+print(colMeans(sales_matrix))
 
-hist(df$salary, 
-     main = "Salary Distribution", 
-     col = "lightgreen", 
-     breaks = 5)
+cat("\nAverage sales per product:\n")
+print(rowMeans(sales_matrix))
 
-# =============================================================================
-# End of Script 1
-# Congratulations! You now understand the core building blocks of R.
-# Next script (02_Data_Structures_Deep_Dive.R) will go much deeper into 
-# coercion, recycling rules, attributes, and more advanced subsetting.
-# =============================================================================
+# ==============================================================================
+# 4. Lists (Heterogeneous Containers)
+# ==============================================================================
 
-cat("\n=== Script 1 completed successfully! ===\n")
-cat("You have now seen vectors, matrices, lists, data frames, functions, and basic plotting.\n")
-cat("Save this script and keep it as your reference.\n")
+# A list representing a student record
+student_record <- list(
+  student_id = "STU-2025001",
+  name = "Alex Rivera",
+  age = 22,
+  courses = c("Statistics", "Programming", "Economics", "Data Visualization"),
+  grades = c(88, 94, 79, 91),
+  graduated = FALSE,
+  enrollment_date = as.Date("2024-09-01")
+)
+
+print("\nStudent record as list:")
+str(student_record)
+
+# Accessing elements
+cat("\nAccessing list elements:\n")
+cat("Student name:", student_record$name, "\n")
+cat("Number of courses:", length(student_record$courses), "\n")
+cat("Average grade:", mean(student_record$grades), "\n")
+
+# ==============================================================================
+# 5. Data Frames (Most Important for Data Analysis)
+# ==============================================================================
+
+# Create a data frame of student information
+students_df <- data.frame(
+  student_id = paste0("STU-", sprintf("%04d", 1:8)),
+  exam_score = exam_scores,
+  department = departments,
+  dept_factor = dept_factor,
+  passed = passed,
+  satisfaction = satisfaction_factor,
+  stringsAsFactors = FALSE
+)
+
+print("\nStudent Information Data Frame:")
+print(students_df)
+
+cat("\nSummary of the dataset:\n")
+summary(students_df)
+
+cat("\nStructure of the data frame:\n")
+str(students_df)
+
+# ==============================================================================
+# 6. Exercises
+# ==============================================================================
+
+cat("\n=== Exercises ===\n")
+cat("Practice these exercises below the script:\n\n")
+
+# Exercise 1:
+# Create a numeric vector called `monthly_temperatures` with 12 values 
+# representing average monthly temperatures in a city.
+
+# Exercise 2:
+# Create a character vector called `product_categories` with at least 6 categories.
+# Then convert it into a factor.
+
+# Exercise 3:
+# Create a matrix that shows monthly expenses for 4 different departments 
+# across 6 months.
+
+# Exercise 4:
+# Create a list called `employee_profile` that contains:
+#   - employee name, age, position, skills (as vector), and salary.
+
+# Exercise 5:
+# Add a new column called `letter_grade` to `students_df` that assigns:
+#   A (90+), B (80-89), C (70-79), D (60-69), F (below 60).
+
+# Exercise 6 (Challenge):
+# Create a data frame with information about 10 books including title, author,
+# publication year, pages, and genre. Then display its summary.
+
+# ==============================================================================
+# End of Script 02
+# ==============================================================================
+
+cat("\n=== End of Script 02 ===\n")
+cat("Great job! Next up: Script 03 - Control Flow and Functions\n") 
