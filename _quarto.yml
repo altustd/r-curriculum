@@ -1,0 +1,11 @@
+project:
+  type: website
+
+website:
+  title: "R Curriculum"
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    smooth-scroll: true
