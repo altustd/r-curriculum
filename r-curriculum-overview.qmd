@@ -1,0 +1,86 @@
+---
+title: "R Curriculum: From Fundamentals to Production"
+subtitle: "A Progressive Hands-on Learning Path"
+author: "Troy Altus"
+date: last-modified
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 3
+    code-fold: show
+    smooth-scroll: true
+    embed-resources: true
+---
+
+# Welcome to the R Curriculum
+
+This notebook serves as the **main hub** for the R Curriculum. It provides an overview of all modules, learning objectives, and direct links to the scripts.
+
+Each script builds progressively using **general, real-world style examples** (students, sales, surveys, etc.).
+
+## Curriculum Structure
+
+### Phase 1: Fundamentals & Base R
+
+- **[01 Fundamentals](scripts/01_R_Fundamentals.R)**  
+  Basic syntax, objects, vectors, data types, and basic operations.
+
+- **[02 Data Structures Deep Dive](scripts/02_R_Data_Structures_Deep_Dive.R)**  
+  Atomic vectors, factors, matrices, lists, and data frames.
+
+- **[03 Control Flow and Functions](scripts/03_R_Control_Flow_and_Functions.R)**  
+  `if`/`else`, `for`/`while` loops, writing custom functions, and the apply family.
+
+### Phase 2: Data Wrangling
+
+- **[04 Data Import and Export](scripts/04_R_Data_Import_and_Export.R)**  
+  Reading/writing CSV, RDS, RData, and best practices.
+
+- **[05 dplyr and tidyr for Data Wrangling](scripts/05_R_dplyr_and_tidyr_Data_Wrangling.R)** *(Just Added)*  
+  Core tidyverse tools: `filter`, `select`, `mutate`, `group_by`, `summarise`, pivoting, and piping.
+
+- **[06 data.table for Advanced Wrangling](scripts/06_R_data_table.R)** *(Coming Soon)*
+
+### Phase 3: Visualization & EDA
+
+- **[07 ggplot2 Mastery](scripts/07_R_ggplot2.R)** *(Coming Soon)*
+- **[08 Exploratory Data Analysis](scripts/08_R_EDA.R)** *(Coming Soon)*
+
+### Phase 4: Statistical Modeling
+
+- **[09 Statistical Modeling](scripts/09_R_Statistical_Modeling.R)** *(Coming Soon)*
+- **[10 Advanced Statistics](scripts/10_R_Advanced_Statistics.R)** *(Coming Soon)*
+
+### Phase 5: Programming & Reproducibility
+
+- **[11 Functional Programming with purrr](scripts/11_R_purrr.R)** *(Coming Soon)*
+- **[12 Reporting with Quarto & R Markdown](scripts/12_R_Quarto_Reporting.R)** *(Coming Soon)*
+
+### Phase 6: Advanced & Production
+
+- **[13 Shiny Web Applications](scripts/13_R_Shiny.R)** *(Coming Soon)*
+- **[14 Machine Learning with tidymodels](scripts/14_R_tidymodels.R)** *(Coming Soon)*
+- **[15 R Package Development & Performance](scripts/15_R_Package_Development.R)** *(Coming Soon)*
+
+## How to Use This Curriculum
+
+1. Open the project in **VS Code**
+2. Restore the environment: `renv::restore()`
+3. Work through the scripts in the `scripts/` folder in numerical order
+4. Use `Cmd + Enter` to run code sections
+5. Complete the exercises at the end of each script
+
+## Learning Path Summary
+
+- **Estimated time per script**: 2–4 hours
+- **Total estimated time**: 40–60 hours
+- **Prerequisites**: Basic computer skills, R and RStudio/VS Code installed
+
+**Tip:** Start with Script 01 and proceed sequentially. Concepts build on each other using consistent general examples.
+
+---
+
+**Happy coding!** 🚀
+
+Questions or feedback? Open an issue on GitHub.
