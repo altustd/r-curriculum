@@ -1,60 +1,60 @@
 ---
-title: "R Curriculum: From Fundamentals to Production"
-subtitle: "A Progressive Hands-on Learning Path"
+title: "r-curriculum"
+subtitle: "A Progressive Hands-on Introduction to R"
 author: "Troy Altus"
-date: last-modified
 format:
   html:
-    theme: cosmo
     toc: true
     toc-depth: 3
+    number-sections: true
     smooth-scroll: true
+    code-tools: true
 ---
 
-# Welcome to the R Curriculum
+## Overview
 
-This is the central overview for the entire R Curriculum.
+This repository contains a structured, progressive curriculum for learning R programming through practical demo scripts. Each script builds on the previous ones and uses general examples with clear exercises.
 
-Each script builds progressively using general examples.
+The curriculum emphasizes:
+- Clean, readable code using the **tidyverse**
+- Best practices (piping, consistent naming, reproducibility)
+- Progressive difficulty
+- Practical exercises at the end of each script
 
-## How to Use
+## Curriculum Map
 
-1. Open this project in **VS Code**
-2. Run `renv::restore()` in the R terminal
-3. Work through the scripts in the `scripts/` folder in order
-4. Use `Cmd + Enter` to execute code sections
+| Script | Topic | Focus |
+|--------|-------|-------|
+| [Script 01](scripts/script-01-r-fundamentals.R) | R Fundamentals | Basic syntax, variables, data types, simple operations |
+| [Script 02](scripts/script-02-data-structures-deep-dive.R) | Data Structures | Vectors, lists, matrices, data frames, tibbles |
+| [Script 03](scripts/script-03-control-flow-and-functions.R) | Control Flow & Functions | Loops, conditionals, writing reusable functions |
+| [Script 04](scripts/script-04-data-import-and-export.R) | Data Import & Export | Reading/writing CSV, RDS, Excel, and other formats |
+| [Script 05](scripts/script-05-data-wrangling-with-dplyr-and-tidyr.R) | Data Wrangling | `dplyr` verbs (`filter`, `select`, `mutate`, `group_by`, `summarise`) and `tidyr` reshaping |
+| [Script 06](scripts/script-06-ggplot2-visualization.R) | **Data Visualization** | `ggplot2`: scatter, bar, boxplot, faceting, themes, and saving plots |
 
-## Curriculum Modules
+## How to Use This Curriculum
 
-### Phase 1: Fundamentals & Base R
+1. Clone or download the repository
+2. Open the project in **RStudio** or **VS Code**
+3. Run `renv::restore()` to install required packages
+4. Work through the scripts in order (they are numbered for a reason)
+5. Try the exercises at the end of each script
 
-- **01** — [Fundamentals](scripts/01_R_Fundamentals.R)  
-- **02** — [Data Structures Deep Dive](scripts/02_R_Data_Structures_Deep_Dive.R)  
-- **03** — [Control Flow and Functions](scripts/03_R_Control_Flow_and_Functions.R)
+## Project Structure
 
-### Phase 2: Data Wrangling
+```bash
+r-curriculum/
+├── README.md
+├── _quarto.yml
+├── r-curriculum-overview.qmd
+├── .gitignore
+├── scripts/
+│   ├── script-01-r-fundamentals.R
+│   ├── script-02-data-structures-deep-dive.R
+│   ├── script-03-control-flow-and-functions.R
+│   ├── script-04-data-import-and-export.R
+│   ├── script-05-data-wrangling-with-dplyr-and-tidyr.R
+│   └── script-06-ggplot2-visualization.R
+├── outputs/          # (for saved plots and results)
+└── data/             # (optional sample data)
 
-- **04** — [Data Import and Export](scripts/04_R_Data_Import_and_Export.R)  
-- **05** — [dplyr and tidyr for Data Wrangling](scripts/05_R_dplyr_and_tidyr_Data_Wrangling.R)
-
-### Phase 3: Visualization & EDA (Coming Soon)
-
-- **07** — ggplot2 Mastery  
-- **08** — Exploratory Data Analysis
-
-### Phase 4–6: Modeling, Programming, and Production (Coming Soon)
-
-- Statistical Modeling
-- Functional Programming with purrr
-- Shiny, tidymodels, and R Package Development
-
-## Quick Links
-
-- [Open scripts folder](scripts/)
-- [View README](README.md)
-
----
-
-**Happy coding!** 🚀
-
-Start with **Script 01** and proceed in order.
