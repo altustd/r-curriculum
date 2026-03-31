@@ -1,134 +1,118 @@
 # ==============================================================================
-# Script 07: Data Import, Export, and Working with Dates
-# 
-# This script builds on Script 04 (basic import/export) and Script 05 (dplyr).
-# It covers real-world data handling and introduces the powerful lubridate package.
+# Script 07: Working with Dates and lubridate
+# ==============================================================================
 #
-# Key packages: readr, readxl, writexl, lubridate
+# Description:
+# This script teaches you how to effectively handle dates and times in R using 
+# the lubridate package. You'll learn to parse, manipulate, extract components 
+# from, and perform calculations with dates — essential skills for any real-world 
+# data analysis project.
+#
+# Prerequisites:
+# - Script 01: R Fundamentals
+# - Script 02: Data Structures Deep Dive
+# - Script 03: Control Flow and Functions
+# - Script 04: Data Import and Export (basic readr functions)
+#
+# Packages used:
+# - tidyverse (includes readr, dplyr, tibble)
+# - lubridate
+#
+# Learning Objectives:
+# - Parse dates and times from various string formats using lubridate functions
+# - Extract components (year, month, day, weekday, hour, etc.) from date objects
+# - Perform arithmetic operations with dates (adding/subtracting days, months, years)
+# - Create and work with intervals, periods, and durations
+# - Handle time zones appropriately
+# - Apply date operations within dplyr pipelines
+#
 # ==============================================================================
 
-library(readr)      # Fast, consistent reading of CSV, TSV, etc.
-library(readxl)     # Reading Excel files (.xls, .xlsx)
-library(writexl)    # Writing Excel files
-library(lubridate)  # Making dates and times easy in R
-library(dplyr)
+# 1. Setup and Package Loading -----------------------------------------------
 
-# ------------------------------------------------------------------------------
-# 1. Reading Different File Formats
-# ------------------------------------------------------------------------------
+# renv::restore()   # Uncomment to ensure correct package versions
 
-# CSV with readr (recommended over base read.csv)
-df_csv <- read_csv("data/sample_data.csv", show_col_types = FALSE)
+library(tidyverse)
+library(lubridate)
 
-# You can also read from URL directly
-# df_url <- read_csv("https://raw.githubusercontent.com/.../data.csv")
+# Set options for cleaner tibble output
+options(tibble.print_min = 6, tibble.width = Inf)
 
-# Excel files
-df_excel <- read_excel("data/sample_data.xlsx", sheet = 1)
+cat("✅ Script 07 - Working with Dates and lubridate is ready!\n\n")
 
-# Specific options
-df_excel <- read_excel("data/sample_data.xlsx", 
-                       sheet = "Sales", 
-                       skip = 1,           # Skip header rows if needed
-                       col_types = c("text", "date", "numeric", "numeric"))
 
-# RDS files (best for saving R objects - preserves data types)
-df_rds <- read_rds("data/my_data.rds")
+# 2. Understanding R's Built-in Date Handling -------------------------------
 
-# ------------------------------------------------------------------------------
-# 2. Writing / Exporting Data
-# ------------------------------------------------------------------------------
+# Base R Date class
+today_base <- Sys.Date()
+now_base   <- Sys.time()
 
-# Write CSV
-write_csv(df_csv, "outputs/clean_data.csv")
+cat("Base R today():", today_base, "\n")
+cat("Base R now():", now_base, "\n\n")
 
-# Write Excel (much better than base write.csv for Excel users)
-write_xlsx(df_csv, "outputs/clean_data.xlsx")
 
-# Save as RDS (recommended for R users)
-write_rds(df_csv, "outputs/clean_data.rds", compress = "gz")
+# 3. Parsing Dates with lubridate -------------------------------------------
 
-# ------------------------------------------------------------------------------
-# 3. Working with Dates using lubridate (Highly Recommended)
-# ------------------------------------------------------------------------------
+# Common parsing functions (the "y" "m" "d" order trick)
+ymd("2025-03-31")          # Year-Month-Day
+mdy("March 31, 2025")
+dmy("31-03-2025")
+ymd_hms("2025-03-31 14:30:00")
 
-# Example messy date column
-dates_example <- tibble(
-  date_str = c("2025-03-15", "15/03/2025", "March 15, 2025", "2025/03/15"),
-  value = c(100, 150, 200, 175)
-)
+# Handling messy real-world dates
+dates_messy <- c("2025-03-31", "31/03/2025", "March 31st 2025", "2025/03/31")
 
-# lubridate makes parsing dates much easier
-dates_example <- dates_example %>%
-  mutate(
-    date1 = ymd(date_str),           # Year-Month-Day
-    date2 = dmy(date_str),           # Day-Month-Year
-    date3 = mdy(date_str),           # Month-Day-Year
-    best_date = parse_date_time(date_str, orders = c("ymd", "dmy", "mdy", "Ymd"))
-  )
+# Try parsing with different functions
 
-glimpse(dates_example)
 
-# Extract useful components
-dates_example <- dates_example %>%
-  mutate(
-    year = year(best_date),
-    month = month(best_date, label = TRUE),     # Jan, Feb, etc.
-    day = day(best_date),
-    weekday = wday(best_date, label = TRUE),
-    quarter = quarter(best_date),
-    is_weekend = wday(best_date) %in% c(1, 7)
-  )
+# 4. Extracting Date Components ---------------------------------------------
 
-# Common date operations
-today()                    # Current date
-now()                      # Current date + time
+# Use functions like year(), month(), day(), wday(), hour(), etc.
 
-# Arithmetic with dates
-dates_example %>%
-  mutate(
-    days_since = today() - best_date,
-    one_month_later = best_date + months(1),
-    one_year_ago = best_date - years(1)
-  )
 
-# ------------------------------------------------------------------------------
-# 4. Real-World Data Cleaning Pipeline Example
-# ------------------------------------------------------------------------------
+# 5. Date Arithmetic -------------------------------------------------------
 
-cleaned_data <- df_csv %>%
-  mutate(
-    # Fix dates
-    transaction_date = parse_date_time(transaction_date, orders = c("ymd", "dmy", "mdy")),
-    # Clean numeric columns
-    amount = parse_number(amount),
-    # Create useful derived columns
-    year = year(transaction_date),
-    month = month(transaction_date, label = TRUE)
-  ) %>%
-  filter(!is.na(transaction_date)) %>%
-  select(id, transaction_date, year, month, customer, amount, everything())
+# Adding / subtracting time periods
+today() + days(30)
+today() + months(3)
+today() + years(1)
 
-# ------------------------------------------------------------------------------
-# Exercises
+# Difference between dates
+
+
+# 6. Working with Dates in dplyr Pipelines -------------------------------
+
+# Example: Using mutate() with date functions
+
+
+# 7. Intervals, Periods, and Durations -------------------------------------
+
+
+
+# 8. Exercises --------------------------------------------------------------
+
+# Exercise 1:
+# Create a vector of 10 different date strings in various formats and parse them all correctly using lubridate.
+
+# Exercise 2:
+# Using the built-in `flights` dataset (or any dataset with a date column), 
+# extract the month and weekday from the date column and create a summary table.
+
+# Exercise 3:
+# Calculate how many days are left until December 31, 2026 from today.
+
+
+# 9. Key Takeaways ----------------------------------------------------------
+
+# - lubridate makes date parsing intuitive with ymd(), mdy(), dmy(), etc.
+# - Always prefer lubridate over base R for date manipulation in tidy workflows
+# - Use year(), month(), day(), wday() to extract components easily
+# - Date arithmetic with days(), months(), years() is very readable
+# - Combine date functions seamlessly inside dplyr::mutate()
+
+# Next Script: Script 08 - [Topic you choose next, e.g. Advanced Data Wrangling with dplyr]
+
+
 # ==============================================================================
-# 
-# 1. Create a small tibble with messy date formats and parse them using lubridate functions.
-#
-# 2. Read any CSV or Excel file you have, then:
-#    - Check the structure with glimpse()
-#    - Fix any date columns
-#    - Export it as both .csv and .xlsx
-#
-# 3. Using the cleaned_data pipeline above, add a column for "quarter" and 
-#    calculate total amount per quarter using group_by() + summarise().
-#
-# 4. (Stretch) Create a new column called "days_since_purchase" and then 
-#    filter for transactions that happened in the last 30 days.
-#
-# Tip: Always use readr::read_csv() and lubridate for new projects — they are much more reliable.
+# End of Script 07
 # ==============================================================================
-
-cat("\n✅ Script 07 completed!\n")
-cat("Key takeaway: Use readr + readxl for import, writexl for export, and lubridate for dates.\n")
-cat("Next: Script 08 - Functional Programming with purrr\n")
